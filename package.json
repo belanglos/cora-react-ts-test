@@ -45,7 +45,7 @@
     "build:js": "babel src --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
     "start": "parcel -p 3000 src/index.html",
     "eslint": "npx eslint src/* --quiet --fix",
-    "test": "jest"
+    "test": "jest --watch"
   },
   "author": "",
   "license": "GPL-3.0"
