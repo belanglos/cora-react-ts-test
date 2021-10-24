@@ -1,7 +1,7 @@
 {
-  "name": "react-ts-boilerplate",
+  "name": "cora-react-ts-test",
   "version": "1.0.0",
-  "description": "A boilerplate to get new projects up faster.",
+  "description": "Testing react+ts for cora.",
   "main": "index.js",
   "dependencies": {
     "@types/react": "^17.0.31",
