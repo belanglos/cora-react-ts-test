@@ -3,12 +3,23 @@ import Api from '../control/api';
 import ListItem from './ListItem';
 
 const PersonList = () => {
+	const persons = Api.getPersons();
 
-
-
-	return <ul>
-        {Api.getPersons().map(person => {return <ListItem text={person.authorizedName.familyName}/>)}    
-    </ul>;
+	return (
+		<ul>
+			{persons.map((person) => {
+				return (
+					<ListItem
+						text={
+							person.authorizedName.familyName +
+							', ' +
+							person.authorizedName.givenName
+						}
+					/>
+				);
+			})}
+		</ul>
+	);
 };
 
 export default PersonList;
