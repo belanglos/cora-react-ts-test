@@ -1,18 +1,32 @@
-import Person from './Person'
+import Person from './Person';
 
-var DUMMY_PERSONS = [
-	new Person("Anka", "Kalle"),
-	new Person("Enequist", "Gerd"),
-	new Person("Ernman", "Malena")
-]
-
+const DUMMY_PERSONS: Person[] = [
+	{
+		authorizedName: {
+			familyName: 'Anka',
+			givenName: 'Kalle',
+		},
+	},
+	{
+		authorizedName: {
+			familyName: 'Enequist',
+			givenName: 'Gerd',
+		},
+	},
+	{
+		authorizedName: {
+			familyName: 'Ernman',
+			givenName: 'Malena',
+		},
+	},
+];
 
 function getOrganisation() {
-    return 'SomeOtherOrg';
+	return 'SomeOtherOrg';
 }
 
-function getPersons(): Array<Person> {
-	return DUMMY_PERSONS
+function getPersons(): Person[] {
+	return DUMMY_PERSONS;
 }
 
 export default { getOrganisation, getPersons };

@@ -1,11 +1,7 @@
-import Name from './Name'
+import Name from './Name';
 
-class Person {
+interface Person {
 	authorizedName: Name;
-	
-	constructor(familyName: string, givenName: string){
-		this.authorizedName = new Name(familyName, givenName);
-	}
 }
 
 export default Person;

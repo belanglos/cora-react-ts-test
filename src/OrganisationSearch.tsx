@@ -10,18 +10,18 @@ const OrganisationSearch = () => {
     };
 
     const handleSend = () => {
-		setInputText('');
-		setOrganisationName(api.getOrganisation());
+        setInputText('');
+        setOrganisationName(api.getOrganisation());
     };
 
-//	function getOrganisation() {
-//	    const orgName: string = 'SomeOrg';
-//	    return orgName;
-//	}
+    //	function getOrganisation() {
+    //	    const orgName: string = 'SomeOrg';
+    //	    return orgName;
+    //	}
 
     return (
         <div>
-			<h1>Organisation Search</h1>
+            <h1>Organisation Search</h1>
             <input
                 type="text"
                 data-testid="organisationSearchInput"
