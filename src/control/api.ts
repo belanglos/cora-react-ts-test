@@ -2,18 +2,21 @@ import Person from './Person';
 
 const DUMMY_PERSONS: Person[] = [
 	{
+		id: '1',
 		authorizedName: {
 			familyName: 'Anka',
 			givenName: 'Kalle',
 		},
 	},
 	{
+		id: '2',
 		authorizedName: {
 			familyName: 'Enequist',
 			givenName: 'Gerd',
 		},
 	},
 	{
+		id: '3',
 		authorizedName: {
 			familyName: 'Ernman',
 			givenName: 'Malena',
@@ -25,7 +28,7 @@ function getOrganisation() {
 	return 'SomeOtherOrg';
 }
 
-function getPersons(): Person[] {
+export function getPersons(): Person[] {
 	return DUMMY_PERSONS;
 }
 

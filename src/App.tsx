@@ -2,7 +2,7 @@ import React from 'react';
 import OrganisationSearch from './OrganisationSearch';
 
 function App() {
-    return <OrganisationSearch />;
+	return <OrganisationSearch />;
 }
 
 export default App;

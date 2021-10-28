@@ -4,8 +4,8 @@ type Props = {
 	text: string;
 };
 
-const ListItem = (props: Props) => {
-	return <li>{props.text}</li>;
+const ListItem = ({ text }: Props) => {
+	return <li>{text}</li>;
 };
 
 export default ListItem;

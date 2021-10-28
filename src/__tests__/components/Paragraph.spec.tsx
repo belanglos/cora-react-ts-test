@@ -4,7 +4,7 @@ import Paragraph from '../../components/Paragraph';
 
 describe('Paragraph', () => {
 	it('should not render children inside a p tag if there are none', () => {
-		const { container } = render(<Paragraph></Paragraph>);
+		const { container } = render(<Paragraph />);
 		const paragraphs = container.querySelectorAll('p');
 		expect(paragraphs).toHaveLength(1);
 		expect(paragraphs[0].textContent).toEqual('');
