@@ -1,6 +1,5 @@
 import React from 'react';
 import Api from '../control/api';
-import ListItem from './ListItem';
 
 const PersonList = () => {
 	const persons = Api.getPersons();
@@ -9,13 +8,9 @@ const PersonList = () => {
 		<ul>
 			{persons.map((person) => {
 				return (
-					<ListItem
-						text={
-							person.authorizedName.familyName +
-							', ' +
-							person.authorizedName.givenName
-						}
-					/>
+					<li key={person.id} data-foo="bar">
+						{`${person.id}: ${person.authorizedName.familyName}, ${person.authorizedName.givenName}`}
+					</li>
 				);
 			})}
 		</ul>

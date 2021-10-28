@@ -1,8 +1,9 @@
 import React from 'react';
-import OrganisationSearch from './OrganisationSearch';
+// import OrganisationSearch from './OrganisationSearch';
+import PersonList from './components/PersonList';
 
 function App() {
-	return <OrganisationSearch />;
+	return <PersonList />;
 }
 
 export default App;

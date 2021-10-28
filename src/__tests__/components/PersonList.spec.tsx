@@ -1,20 +1,15 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import PersonList from '../../components/PersonList';
-import Api from '../../control/api';
+import { getPersons } from '../../control/api';
+
+jest.mock('../../control/api');
+
+const mockGetPersons = getPersons as jest.MockedFunction<typeof getPersons>;
 
 describe('The PersonList component', () => {
-	jest.mock('../../control/api', () => {
-		getPersons: jest.fn();
-	});
-
-	afterEach = () => {
-		Api.getPersons.mockImplementation;
-	};
 	it('should output empty list if there are no persons returned by the api', () => {
-		jest.mock('../../control/api', () => {
-			getPersons: () => [];
-		});
+		mockGetPersons.mockReturnValue([]);
 
 		render(<PersonList />);
 
@@ -23,52 +18,54 @@ describe('The PersonList component', () => {
 	});
 
 	it('should render one person returned by api', () => {
-		jest.mock('../../control/api', () => {
-			getPersons: () => [
-				{
-					authorizedName: {
-						familyName: 'Anka',
-						givenName: 'Kalle'
-					}
-				}
-			];
-		});
+		mockGetPersons.mockReturnValue([
+			{
+				id: '1',
+				authorizedName: {
+					familyName: 'Anka',
+					givenName: 'Kalle',
+				},
+			},
+		]);
 
 		render(<PersonList />);
 
 		const listItems = screen.getAllByRole('listitem');
 		expect(listItems).toHaveLength(1);
-		expect(listItems[0]).toHaveTextContent('Anka, Kalle');
+		expect(listItems[0]).toHaveTextContent('1: Anka, Kalle');
 	});
 
-	it('should render several person returned by api', () => {
-		jest.mock('../../control/api', () => {
-			getPersons: () => [
-				{
-					authorizedName: {
-						familyName: 'Anka',
-						givenName: 'Kalle'
-					}
+	it('should render several persons returned by api', () => {
+		mockGetPersons.mockReturnValue([
+			{
+				id: '1',
+				authorizedName: {
+					familyName: 'Anka',
+					givenName: 'Kalle',
 				},
-				{
-					authorizedName: {
-						familyName: 'Enequist',
-						givenName: 'd'
-					}
+			},
+			{
+				id: '2',
+				authorizedName: {
+					familyName: 'Enequist',
+					givenName: 'Gerd',
 				},
-				{
-					authorizedName: {
-						familyName: 'Ernman',
-						givenName: 'Magdalena'
-					}
-				}
-			];
-		});
+			},
+			{
+				id: '3',
+				authorizedName: {
+					familyName: 'Ernman',
+					givenName: 'Malena',
+				},
+			},
+		]);
 
 		render(<PersonList />);
 
 		const listItems = screen.getAllByRole('listitem');
 		expect(listItems).toHaveLength(3);
-		expect(listItems[0]).toHaveTextContent('Anka, Kalle');
+		expect(listItems[0]).toHaveTextContent('1: Anka, Kalle');
+		// expect(listItems[1]).toHaveAttribute('key', '2');
+		expect(listItems[2]).toHaveTextContent('3: Ernman, Malena');
 	});
 });
