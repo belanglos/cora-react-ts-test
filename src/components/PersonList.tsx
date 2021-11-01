@@ -7,11 +7,9 @@ const PersonList = () => {
 	return (
 		<ul>
 			{persons.map((person) => {
-				return (
-					<li key={person.id} data-foo="bar">
-						{`${person.id}: ${person.authorizedName.familyName}, ${person.authorizedName.givenName}`}
-					</li>
-				);
+				let text = `${person.id}: ${person.authorizedName.familyName}, ${person.authorizedName.givenName}`;
+				text += person.domains ? ` [${person.domains.join(', ')}]` : '';
+				return <li key={person.id}>{text}</li>;
 			})}
 		</ul>
 	);

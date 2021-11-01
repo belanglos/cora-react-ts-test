@@ -14,6 +14,7 @@ const DUMMY_PERSONS: Person[] = [
 			familyName: 'Enequist',
 			givenName: 'Gerd',
 		},
+		domains: ['Uppsala Universitet', 'Test'],
 	},
 	{
 		id: '3',
