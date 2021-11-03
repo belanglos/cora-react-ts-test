@@ -23,6 +23,13 @@ const DUMMY_PERSONS: Person[] = [
 			givenName: 'Malena',
 		},
 	},
+	{
+		id: '4',
+		authorizedName: {
+			familyName: 'Last',
+			givenName: 'First',
+		},
+	},
 ];
 
 function getOrganisation() {
