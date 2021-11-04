@@ -1,103 +1,126 @@
 import { getFirstChildWithNameInData } from '../../converter/CoraDataUtils';
-import { DataGroup, DataElement } from '../../converter/CoraData';
-
-const examplePerson = {
-	name: 'person',
-	children: [
-		{
-			name: 'recordInfo',
-			children: [
-				{
-					name: 'id',
-					value: 'authority-person:60944',
-				},
-				{
-					name: 'type',
-					children: [
-						{
-							name: 'linkedRecordType',
-							value: 'recordType',
-						},
-						{
-							name: 'linkedRecordId',
-							value: 'person',
-						},
-					],
-				},
-				{
-					name: 'dataDivider',
-					children: [
-						{
-							name: 'linkedRecordType',
-							value: 'system',
-						},
-						{
-							name: 'linkedRecordId',
-							value: 'diva',
-						},
-					],
-				},
-				{
-					name: 'tsCreated',
-					value: '2021-11-03T14:05:30.005Z',
-				},
-				{
-					name: 'public',
-					value: 'yes',
-				},
-				{
-					name: 'domain',
-					value: 'uu',
-					repeatId: '0',
-				},
-			],
-		},
-		{
-			name: 'authorisedName',
-			children: [
-				{
-					name: 'familyName',
-					value: 'Duck',
-				},
-				{
-					name: 'givenName',
-					value: 'Donald',
-				},
-			],
-		},
-		{
-			name: 'personDomainPart',
-			children: [
-				{
-					name: 'linkedRecordType',
-					value: 'personDomainPart',
-				},
-				{
-					name: 'linkedRecordId',
-					value: 'authority-person:3454534:test',
-				},
-			],
-			repeatId: '0',
-		},
-	],
-};
+import { DataGroup, DataElement, DataAtomic } from '../../converter/CoraData';
 
 describe('getFirstChildWithNameInData', () => {
-	it('should exist', () => {
+	it('should throw error if no child exists', () => {
 		const dataGroupWithEmptyChildren: DataGroup = {
-			name: 'SomeName',
+			name: 'someName',
+			children: [],
 		};
 
-		const child: DataElement | undefined = getFirstChildWithNameInData(
-			dataGroupWithEmptyChildren,
-			'SomeName'
+		expect(() => {
+			getFirstChildWithNameInData(dataGroupWithEmptyChildren, 'someChildName');
+		}).toThrowError('The DataGroup has no children.');
+	});
+
+	it('should throw error if no matching child exists', () => {
+		const dataGroupWithEmptyChildren: DataGroup = {
+			name: 'someName',
+			children: [
+				{
+					name: 'someUninterestingName',
+					value: 'someValue',
+				},
+			],
+		};
+
+		expect(() => {
+			getFirstChildWithNameInData(dataGroupWithEmptyChildren, 'someChildName');
+		}).toThrowError(
+			'The DataGroup has no child with name in data "someChildName".'
 		);
 
-		expect(child).toBe(undefined);
+		expect(() => {
+			getFirstChildWithNameInData(
+				dataGroupWithEmptyChildren,
+				'someOtherChildName'
+			);
+		}).toThrowError(
+			'The DataGroup has no child with name in data "someOtherChildName".'
+		);
+	});
 
-		// expect(person).toBe.
-		// const persons = api.getPersons();
-		// expect(persons[0].authorizedName.familyName).toBe('Anka');
-		// expect(persons[1].authorizedName.givenName).toBe('Gerd');
+	it('Should return a child with matching name in data if provided with one matching child', () => {
+		const dataGroupWithOneMatchingChild: DataGroup = {
+			name: 'someName',
+			children: [
+				{
+					name: 'someChildName',
+					value: 'someValue',
+				},
+			],
+		};
+
+		const child: DataAtomic = <DataAtomic>(
+			getFirstChildWithNameInData(
+				dataGroupWithOneMatchingChild,
+				'someChildName'
+			)
+		);
+		expect(child).not.toBe(undefined);
+		expect(child.name).toBe('someChildName');
+	});
+
+	it('Should return a child with matching name in data if provided with one matching child and one additional', () => {
+		const dataGroupWithOneMatchingAndOneOtherChild: DataGroup = {
+			name: 'someName',
+			children: [
+				{
+					name: 'someChildName',
+					value: 'someValue',
+				},
+				{
+					name: 'someOtherChildName',
+					value: 'someValue',
+				},
+			],
+		};
+
+		const child2: DataElement = getFirstChildWithNameInData(
+			dataGroupWithOneMatchingAndOneOtherChild,
+			'someOtherChildName'
+		);
+		expect(child2).not.toBe(undefined);
+		expect(child2.name).toBe('someOtherChildName');
+	});
+
+	it('Should return the first child with matching name in data', () => {
+		const dataGroupWithMultipleMatchingChildren: DataGroup = {
+			name: 'someName',
+			children: [
+				{
+					name: 'someOtherChildName',
+					children: [
+						{
+							name: 'someGrandChildName',
+							value: 'someValue',
+						},
+					],
+				},
+				{
+					name: 'someChildName',
+					value: 'someValue',
+				},
+				{
+					name: 'someChildName',
+					children: [
+						{
+							name: 'anotherGrandChildName',
+							value: 'someValue',
+						},
+					],
+				},
+			],
+		};
+
+		const child: DataAtomic = <DataAtomic>(
+			getFirstChildWithNameInData(
+				dataGroupWithMultipleMatchingChildren,
+				'someChildName'
+			)
+		);
+		expect(child).not.toBe(undefined);
+		expect(child.name).toBe('someChildName');
+		expect(child.value).toBe('someValue');
 	});
 });

@@ -1,9 +1,9 @@
-export interface DataElement {
+export abstract class DataElement {
 	name: string;
 }
 
 export interface DataGroup extends DataElement {
-	children?: DataElement[];
+	children: (DataAtomic | DataGroup)[];
 }
 
 export interface DataAtomic extends DataElement {
