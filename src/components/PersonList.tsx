@@ -1,8 +1,12 @@
 import React from 'react';
-import Api from '../control/api';
+import Person from '../control/Person';
 
-const PersonList = () => {
-	const persons = Api.getPersons();
+type Props = {
+	persons: Person[];
+};
+
+const PersonList = (props: Props) => {
+	const { persons } = props;
 
 	return (
 		<ul>
