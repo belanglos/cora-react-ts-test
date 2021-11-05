@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { searchPersonsByNameSearch } from '../control/api';
-import Person from '../control/Person';
 import PersonList from './PersonList';
 
 const PersonSearch = () => {
 	const [inputText, setInputText] = useState('');
-	const [personName, setPersonName] = useState('');
 	const [persons, setPersons] = useState([]);
 
 	const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
