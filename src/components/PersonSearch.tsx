@@ -1,6 +1,21 @@
+import { Input } from 'antd';
+import { AudioOutlined } from '@ant-design/icons';
+import 'antd/dist/antd.css';
+
 import React, { useState } from 'react';
 import { searchPersonsByNameSearch } from '../control/api';
 import PersonList from './PersonList';
+
+const { Search } = Input;
+
+const suffix = (
+	<AudioOutlined
+		style={{
+			fontSize: 16,
+			color: '#1890ff',
+		}}
+	/>
+);
 
 const PersonSearch = () => {
 	const [inputText, setInputText] = useState('');
@@ -19,6 +34,11 @@ const PersonSearch = () => {
 		});
 	};
 
+	const handleSearch = (search: string) => {
+		setInputText(search);
+		handleSend();
+	};
+
 	return (
 		<div>
 			<h1>Person Search</h1>
@@ -31,6 +51,20 @@ const PersonSearch = () => {
 			<button type="submit" data-testid="sendButton" onClick={handleSend}>
 				Send
 			</button>
+			<Search
+				placeholder="input search text"
+				allowClear
+				onSearch={handleSearch}
+				style={{ width: 200 }}
+			/>
+
+			<Search
+				placeholder="input search text"
+				enterButton="Search"
+				size="large"
+				suffix={suffix}
+				onSearch={handleSearch}
+			/>
 
 			<PersonList persons={persons} />
 		</div>
