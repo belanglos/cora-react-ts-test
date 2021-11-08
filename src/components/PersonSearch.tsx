@@ -4,7 +4,7 @@ import 'antd/dist/antd.css';
 
 import React, { useState } from 'react';
 import { searchPersonsByNameSearch } from '../control/api';
-import PersonList from './PersonList';
+import PersonList from './PersonListAntd';
 
 const { Search } = Input;
 
@@ -18,31 +18,35 @@ const suffix = (
 );
 
 const PersonSearch = () => {
-	const [inputText, setInputText] = useState('');
+	// const [inputText, setInputText] = useState('');
 	const [persons, setPersons] = useState([]);
 
-	const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setInputText(event.target.value);
-	};
+	// const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+	// 	setInputText(event.target.value);
+	// };
 
-	const handleSend = () => {
-		// setInputText('');
-		const personsPromise = searchPersonsByNameSearch(inputText);
+	// const handleSend = () => {
+	// 	// setInputText('');
+	// 	const personsPromise = searchPersonsByNameSearch(inputText);
+	// 	personsPromise.then((data: any) => {
+	// 		console.log(data);
+	// 		setPersons(data);
+	// 	});
+	// };
+
+	const handleSearch = (search: string) => {
+		// setInputText(search);
+		const personsPromise = searchPersonsByNameSearch(search);
 		personsPromise.then((data: any) => {
 			console.log(data);
 			setPersons(data);
 		});
 	};
 
-	const handleSearch = (search: string) => {
-		setInputText(search);
-		handleSend();
-	};
-
 	return (
 		<div>
 			<h1>Person Search</h1>
-			<input
+			{/* <input
 				type="text"
 				data-testid="searchInput"
 				value={inputText}
@@ -50,7 +54,7 @@ const PersonSearch = () => {
 			/>
 			<button type="submit" data-testid="sendButton" onClick={handleSend}>
 				Send
-			</button>
+			</button> */}
 			<Search
 				placeholder="input search text"
 				allowClear
@@ -58,13 +62,13 @@ const PersonSearch = () => {
 				style={{ width: 200 }}
 			/>
 
-			<Search
+			{/* <Search
 				placeholder="input search text"
 				enterButton="Search"
 				size="large"
 				suffix={suffix}
 				onSearch={handleSearch}
-			/>
+			/> */}
 
 			<PersonList persons={persons} />
 		</div>
