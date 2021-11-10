@@ -19,6 +19,12 @@ const PersonSearch = () => {
 		});
 	};
 
+	const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+		if (e.code === 'Enter') {
+			handleSend();
+		}
+	};
+
 	return (
 		<div>
 			<h1>Person Search</h1>
@@ -27,6 +33,7 @@ const PersonSearch = () => {
 				data-testid="searchInput"
 				value={inputText}
 				onChange={handleTextChange}
+				onKeyPress={handleKeyPress}
 			/>
 			<button type="submit" data-testid="sendButton" onClick={handleSend}>
 				Send
