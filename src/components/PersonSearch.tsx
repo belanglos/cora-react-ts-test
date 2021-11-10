@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
+import InputBase from '@mui/material/InputBase';
+import IconButton from '@mui/material/IconButton';
+import SearchIcon from '@mui/icons-material/Search';
 import { searchPersonsByNameSearch } from '../control/api';
 import PersonList from './PersonList';
+import SimpleSearch from './SimpleSearch';
 
 const PersonSearch = () => {
 	const [inputText, setInputText] = useState('');
@@ -28,12 +32,17 @@ const PersonSearch = () => {
 	return (
 		<div>
 			<h1>Person Search</h1>
-			<input
+			{/* <input
 				type="text"
 				data-testid="searchInput"
 				value={inputText}
 				onChange={handleTextChange}
 				onKeyPress={handleKeyPress}
+			/> */}
+			<SimpleSearch
+				placeholder="Search Persons"
+				ariaLabel="search persons"
+				handleClick={handleSend}
 			/>
 			<button type="submit" data-testid="sendButton" onClick={handleSend}>
 				Send
